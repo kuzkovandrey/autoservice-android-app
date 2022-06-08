@@ -17,9 +17,7 @@ class GetOrderDetailsUseCase @Inject constructor(
     operator fun invoke(orderId: Int): Flow<Resource<OrderDetails>> = flow {
         try {
             emit(Resource.Loading())
-
             val orderDetails = repository.getOrderById(orderId).toOrderDetails()
-
             emit(Resource.Success(orderDetails))
         } catch (e: HttpException) {
             emit(Resource.Error(e.localizedMessage ?: Messages.HTTP_ERROR))

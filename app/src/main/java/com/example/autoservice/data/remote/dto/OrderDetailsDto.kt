@@ -1,6 +1,5 @@
 package com.example.autoservice.data.remote.dto
 
-import com.example.autoservice.domain.model.Order
 import com.example.autoservice.domain.model.OrderDetails
 
 data class OrderDetailsDto(

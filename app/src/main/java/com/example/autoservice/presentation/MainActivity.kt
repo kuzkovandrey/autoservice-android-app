@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.autoservice.common.constants.Constants
+import com.example.autoservice.presentation.order_creation.CreateOrderScreen
 import com.example.autoservice.presentation.order_details.OrderDetailsScreen
 import com.example.autoservice.presentation.orders_list.OrdersListScreen
 import com.example.autoservice.presentation.ui.theme.AutoserviceTheme
@@ -22,7 +23,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AutoserviceTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -38,16 +38,18 @@ class MainActivity : ComponentActivity() {
                         ) {
                             OrdersListScreen(navController)
                         }
-
                         composable(
                             route = Screen.OrderDetailScreen.route + "/{${Constants.PARAM_ORDER_ID}}"
                         ) {
                             OrderDetailsScreen(navController)
                         }
+                        composable(
+                            route = Screen.CreateOrderScreen.route
+                        ) {
+                            CreateOrderScreen(navController)
+                        }
                     }
                 }
-
-
             }
         }
     }

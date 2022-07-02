@@ -1,5 +1,6 @@
 package com.example.autoservice.presentation.order_details
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -25,6 +26,7 @@ class OrderDetailsViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<String>(Constants.PARAM_ORDER_ID)?.let { orderId ->
+            Log.i("TTT", orderId)
             getOrderDetails(orderId.toInt())
         }
     }

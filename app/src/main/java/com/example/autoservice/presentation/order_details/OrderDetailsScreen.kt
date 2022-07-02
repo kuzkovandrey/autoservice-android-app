@@ -3,8 +3,6 @@ package com.example.autoservice.presentation.order_details
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,6 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.autoservice.presentation.shared.TopAppBar
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderDetailsScreen(
     navController: NavController,
@@ -21,28 +20,44 @@ fun OrderDetailsScreen(
 ) {
     val state = viewModel.state.value
 
-    TopAppBar(title = "Order Details Screen", onClickBackButton = {  })
-    
-//    Box(modifier = Modifier.fillMaxSize()) {
-//        state.order?.let { order ->
-//            LazyColumn(
-//                modifier = Modifier.fillMaxSize(),
-//                contentPadding = PaddingValues(20.dp)
-//            ) {
-//                item {
-//
-//                    Text(
-//                        text = "Order id: ${order.id}",
-//                        modifier = Modifier
-//                            .padding(20.dp)
-//                            .fillMaxWidth()
-//                            .background(color = MaterialTheme.colorScheme.secondary)
-//                    )
-//
-//
-//                }
-//            }
-//
-//        }
-//    }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = "Order Details Screen",
+                withBackButton = true,
+                onClickBackButton = { navController.popBackStack() }
+            )
+        }
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            Text(text = "text")
+
+            if (state.isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+
+            if (state.error.isNotBlank()) {
+                Text(text = state.error, modifier = Modifier.align(Alignment.Center))
+            }
+
+            Column {
+                state.order?.let { order ->
+                    Text(
+                        text = "Order id: ${order.id}",
+                        modifier = Modifier
+                            .padding(20.dp)
+                            .fillMaxWidth()
+                            .background(color = MaterialTheme.colorScheme.secondary)
+                    )
+                }
+            }
+            
+        }
+    }
 }

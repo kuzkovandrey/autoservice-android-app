@@ -15,9 +15,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.autoservice.presentation.Screen
 import com.example.autoservice.presentation.orders_list.components.OrderListItem
-import androidx.compose.material3.Scaffold
+import com.example.autoservice.presentation.shared.TopAppBar
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrdersListScreen(
     navController: NavController,
@@ -25,43 +25,51 @@ fun OrdersListScreen(
 ) {
     val state = viewModel.state.value
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(state.orders) { order ->
-                OrderListItem(
-                    order = order,
-                    onItemClick = {
-                        navController.navigate(Screen.OrderDetailScreen.route + "/${it.id}")
-                    }
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate(Screen.CreateOrderScreen.route)
+                },
+            ) {
+                Icon(imageVector = Icons.Filled.Add, contentDescription = "New order")
+            }
+        },
+        topBar = { TopAppBar(title = "Orders") }
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(state.orders) { order ->
+                    OrderListItem(
+                        order = order,
+                        onItemClick = {
+                            navController.navigate(Screen.OrderDetailScreen.route + "/${it.id}")
+                        }
+                    )
+                }
+            }
+            if(state.error.isNotBlank()) {
+                Text(
+                    text = state.error,
+                    color = MaterialTheme.colorScheme.error,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .align(Alignment.Center)
+                )
+            }
+            if (state.isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center)
                 )
             }
         }
-        if(state.error.isNotBlank()) {
-            Text(
-                text = state.error,
-                color = MaterialTheme.colorScheme.error,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .align(Alignment.Center)
-            )
-        }
-        if (state.isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
-
-        FloatingActionButton(
-            onClick = { /*TODO*/ },
-            modifier = Modifier.absolutePadding(bottom = 10.dp, right = 10.dp)
-        ) {
-            Icon(imageVector = Icons.Filled.Add, contentDescription = "New order")
-        }
     }
 
-
-
-
 }
+

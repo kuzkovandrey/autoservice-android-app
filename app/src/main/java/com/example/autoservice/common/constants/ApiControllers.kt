@@ -5,4 +5,5 @@ object ApiControllers {
     const val ORDERS = "orders/list"
     const val ORDER_DETAIL = "orders"
     const val ID = "id"
+    const val NEW_ORDER_INFO = "orders/info"
 }

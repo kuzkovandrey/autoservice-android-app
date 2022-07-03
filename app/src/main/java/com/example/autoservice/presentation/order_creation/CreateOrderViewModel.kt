@@ -1,6 +1,5 @@
 package com.example.autoservice.presentation.order_creation
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -19,7 +18,6 @@ import com.example.autoservice.domain.use_case.create_order.CreateNewOrderUseCas
 import com.example.autoservice.domain.use_case.create_order.GetNewOrderInfoUseCase
 import com.example.autoservice.presentation.order_creation.constants.FieldNames
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject

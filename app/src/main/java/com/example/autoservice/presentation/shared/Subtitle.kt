@@ -12,15 +12,15 @@ import androidx.compose.ui.unit.sp
 import com.example.autoservice.presentation.ui.theme.Colors
 
 @Composable
-fun Title(text: String) {
+fun Subtitle(text: String) {
     Text(
         text = text,
-        fontWeight = FontWeight(500),
-        fontSize = 22.sp,
-        textAlign = TextAlign.Center,
+        fontWeight = FontWeight(400),
+        fontSize = 20.sp,
+        textAlign = TextAlign.Start,
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 10.dp),
-        color = Colors.Purple40
+        color = Colors.Pink40
     )
 }

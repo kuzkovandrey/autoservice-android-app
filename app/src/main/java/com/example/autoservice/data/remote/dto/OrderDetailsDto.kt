@@ -16,7 +16,7 @@ fun OrderDetailsDto.toOrderDetails(): OrderDetails {
     return OrderDetails(
         id = id,
         client = client,
-        createdAt = createdAt,
+        createdAt = createdAt.substring(0..9) + " " + createdAt.substring(11..15),
         employeeName = employee.name,
         price = price,
         priceDescription = priceList.description,

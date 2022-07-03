@@ -12,6 +12,6 @@ fun OrderDto.toOrder(): Order {
     return Order(
         id = id,
         clientName = clientName,
-        createdAt = createdAt
+        createdAt = createdAt.substring(0..9) + " " + createdAt.substring(11..15)
     )
 }

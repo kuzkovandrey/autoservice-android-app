@@ -94,7 +94,7 @@ fun CreateOrderScreen(
             }
 
             if (orderInfo.info.employeesList.isNotEmpty() && orderInfo.info.priceList.isNotEmpty()) {
-                Column {
+                Column(modifier = Modifier.padding(horizontal = 20.dp)) {
                     Title(text = "1. Client info:")
 
                     OutlinedTextField(

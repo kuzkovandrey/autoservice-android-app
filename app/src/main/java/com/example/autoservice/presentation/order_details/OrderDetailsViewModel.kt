@@ -26,7 +26,6 @@ class OrderDetailsViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<String>(Constants.PARAM_ORDER_ID)?.let { orderId ->
-            Log.i("TTT", orderId)
             getOrderDetails(orderId.toInt())
         }
     }

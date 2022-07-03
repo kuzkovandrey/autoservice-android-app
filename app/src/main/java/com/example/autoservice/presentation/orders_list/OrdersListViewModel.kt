@@ -19,11 +19,7 @@ class OrdersListViewModel @Inject constructor(
     private val _state = mutableStateOf(OrdersListState())
     val state: State<OrdersListState> = _state
 
-    init {
-        getOrders()
-    }
-
-    private fun getOrders() {
+    fun getOrders() {
         getOrdersUseCase().onEach { result ->
             when(result) {
                 is Resource.Success -> {

@@ -8,5 +8,6 @@ data class OrderDetails(
     val createdAt: String,
     val employeeName: String,
     val price: Double,
-    val priceDescription: String
+    val priceDescription: String,
+    val carInfo: String
 )

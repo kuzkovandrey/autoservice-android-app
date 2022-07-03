@@ -1,6 +1,5 @@
 package com.example.autoservice.presentation.order_creation
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -10,11 +9,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.autoservice.domain.services.ToastService
 import com.example.autoservice.presentation.Screen
 import com.example.autoservice.presentation.order_creation.constants.FieldNames
 import com.example.autoservice.presentation.shared.SelectableField
@@ -32,17 +33,20 @@ fun CreateOrderScreen(
 
     var isLoading by remember { mutableStateOf(false) }
 
+    val context = LocalContext.current
+
     fun onClickCreationButton() {
         isLoading = true
 
         viewModel.createNewOrder(
             onResult = { order ->
-                Log.i("TTT", order.toString())
                 isLoading = false
-                navController.navigate(Screen.OrderDetailScreen.route + "/${order.id}")
+                navController.navigate(Screen.OrderDetailScreen.route + "/${order.id}") {
+                    popUpTo(Screen.OrdersListScreen.route)
+                }
             },
             onError = { message ->
-                Log.i("TTT", message)
+                ToastService.show(message, context)
                 isLoading = false
             }
         )
@@ -50,7 +54,7 @@ fun CreateOrderScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = "Create new order", onClickBackButton = {
+            TopAppBar(title = "Create new order", withBackButton = true,  onClickBackButton = {
                 navController.popBackStack()
             })
         },
@@ -69,7 +73,7 @@ fun CreateOrderScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(10.dp)
+                .padding(paddingValues)
         ) {
             if (orderInfo.isLoading || isLoading) {
                 CircularProgressIndicator(
@@ -90,7 +94,7 @@ fun CreateOrderScreen(
             }
 
             if (orderInfo.info.employeesList.isNotEmpty() && orderInfo.info.priceList.isNotEmpty()) {
-                Column(modifier = Modifier.padding(paddingValues)) {
+                Column {
                     Title(text = "1. Client info:")
 
                     OutlinedTextField(

@@ -32,6 +32,5 @@ fun TopAppBar(
                 }
             }
         },
-
     )
 }

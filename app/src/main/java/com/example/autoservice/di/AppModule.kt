@@ -31,5 +31,4 @@ object AppModule {
     fun provideOrderRepository(api: OrderApi): OrderRepository {
         return OrderRepositoryImpl(api)
     }
-
 }

@@ -104,8 +104,6 @@ class CreateOrderViewModel @Inject constructor(
             when(result) {
                 is Resource.Success -> {
                     _orderInfo.value = NewOrderInfoState(info = result.data ?: CreateOrderInfo())
-
-                    Log.i("TTT", _orderInfo.value.toString())
                 }
                 is Resource.Error -> {
                     _orderInfo.value = NewOrderInfoState(
@@ -132,8 +130,6 @@ class CreateOrderViewModel @Inject constructor(
             priceListId = priceListId,
             price = price
         )
-
-        Log.i("TTT", order.toString())
 
         createNewOrderUseCase(order).onEach { result ->
             when(result) {

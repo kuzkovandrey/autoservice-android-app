@@ -23,7 +23,7 @@ interface OrderApi {
     @GET(ApiControllers.NEW_ORDER_INFO)
     suspend fun getNewOrderInfo(): CreateOrderInfo
 
-    @POST(ApiControllers.ORDERS)
+    @POST(ApiControllers.ORDER_DETAIL)
     suspend fun createOrder(@Body order: NewOrder): CreatedOrderDto
 }
 

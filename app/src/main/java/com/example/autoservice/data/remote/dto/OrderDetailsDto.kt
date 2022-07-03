@@ -8,7 +8,8 @@ data class OrderDetailsDto(
     val createdAt: String,
     val employee: Employee,
     val price: Double,
-    val priceList: PriceList
+    val priceList: PriceList,
+    val carInfo: String
 )
 
 fun OrderDetailsDto.toOrderDetails(): OrderDetails {
@@ -18,6 +19,7 @@ fun OrderDetailsDto.toOrderDetails(): OrderDetails {
         createdAt = createdAt,
         employeeName = employee.name,
         price = price,
-        priceDescription = priceList.description
+        priceDescription = priceList.description,
+        carInfo = carInfo
     )
 }
